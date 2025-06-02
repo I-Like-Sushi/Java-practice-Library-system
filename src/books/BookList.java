@@ -2,13 +2,14 @@ package books;
 
 import java.util.*;
 
-public class Books {
+public class BookList {
 
     public Map<String, Map<String, Object>> booksInStock;
+
     private static int bookIDCounter;
     int BookID;
 
-    public Books() {
+    public BookList() {
         booksInStock = new HashMap<>();
         booksInStock.put("Lord of the Rings", new HashMap<>(Map.of(
                 "Author", "J.R.R. Tolkien",
@@ -51,6 +52,17 @@ public class Books {
         )));
     }
 
+    public void addBookInList(String bookTitle, String author, String genre, int published) {
+        Map<String, Object> newBookInList = new HashMap<>();
+        newBookInList.put("Published", published);
+        newBookInList.put("Genre", genre);
+        newBookInList.put("Author", author);
+        newBookInList.put("BookID", getBookIDCounter());
+        newBookInList.put("Status", BookStatus.status.AVAILABLE);
+        booksInStock.put(bookTitle, (newBookInList));
+        System.out.println("The new book has been added to the database.");
+    }
+
     private int getBookIDCounter() {
         this.BookID = ++bookIDCounter;
         return BookID;
@@ -70,8 +82,6 @@ public class Books {
         }
     }
 
-    public void deleteBook(String bookName) {
-        booksInStock.remove(bookName);
+    public void deleteBook(String bookName) { booksInStock.remove(bookName); }
 
-    }
 }
